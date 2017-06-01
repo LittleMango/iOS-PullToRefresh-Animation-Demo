@@ -133,7 +133,7 @@ static NSString * const kCellID = @"kCellID";
         self.circleLayer.strokeEnd = 1.0;
         [CATransaction begin];
         [CATransaction setDisableActions:YES];
-        self.circleLayer.affineTransform = CGAffineTransformMakeRotation(-(M_PI / 720 * height - 100));
+        self.circleLayer.affineTransform = CGAffineTransformMakeRotation(-(M_PI / 720 * (height - 100)));
         [CATransaction commit];
         [path addLineToPoint:CGPointMake(self.view.width, 100)];
         [path addQuadCurveToPoint:CGPointMake(0, 100) controlPoint:CGPointMake(self.view.center.x, height)];
@@ -153,7 +153,7 @@ static NSString * const kCellID = @"kCellID";
 }
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y == -100) {
+    if (scrollView.contentOffset.y < -99 &&scrollView.contentOffset.y > -101) {
         self.circleLayer.affineTransform = CGAffineTransformIdentity;
         [self p_rise];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
